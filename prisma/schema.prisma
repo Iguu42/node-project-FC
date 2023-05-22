@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Empresa {
+  id_empresa       Int      @id @default(autoincrement())
+  data_criacao     DateTime @default(now())
+  nome             String   @unique
+  desativado       Boolean  @default(false)
+  data_desativacao DateTime @updatedAt
+
+  unidade Unidade[]
+
+  @@map("empresa")
+}
+
+model Unidade {
+  id_unidade       Int      @id @default(autoincrement())
+  id_empresa       Int
+  data_criacao     DateTime @default(now())
+  razao_social     String
+  nome_fantasia    String
+  cnpj             String
+  desativado       Boolean  @default(false)
+  data_desativacao DateTime @updatedAt
+
+  empresa Empresa @relation(fields: [id_empresa], references: [id_empresa])
+
+  @@map("unidade")
+}

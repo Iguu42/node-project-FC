@@ -6,7 +6,7 @@
   "author": "Igor Pereira <igor.pereira@avenuecode.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "nodemon --exec ts-node ./src/routes/index.ts",
     "build": "rm -rf ./dist && tsc",
     "start": "node ./dist/index.js"
   },
@@ -20,6 +20,7 @@
     "@prisma/client": "^4.14.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "express-async-errors": "^3.1.1"
+    "express-async-errors": "^3.1.1",
+    "nodemon": "^2.0.22"
   }
 }

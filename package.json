@@ -6,7 +6,7 @@
   "author": "Igor Pereira <igor.pereira@avenuecode.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/routes/index.ts",
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "rm -rf ./dist && tsc",
     "start": "node ./dist/index.js"
   },

@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://ddzgwauo:lEOtpF5bHtMeZmcqhLJ3BrY_9stYogFC@silly.db.elephantsql.com/ddzgwauo"
+  url      = env("DATABASE_URL")
 }
 
 model Empresa {

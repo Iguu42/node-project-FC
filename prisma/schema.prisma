@@ -7,19 +7,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Empresa {
-  id_empresa       Int      @id @default(autoincrement())
-  data_criacao     DateTime @default(now())
-  nome             String   @unique
-  desativado       Boolean  @default(false)
-  data_desativacao DateTime @updatedAt
-
-  unidade Unidade[]
-
-  @@map("empresa")
+model empresa {
+  id_empresa       Int       @id @default(autoincrement())
+  data_criacao     DateTime  @default(now())
+  nome             String    @unique
+  desativado       Boolean   @default(false)
+  data_desativacao DateTime
+  unidade          unidade[]
 }
 
-model Unidade {
+model nota_fiscal {
+  id_nota_fiscal Int      @id @default(autoincrement())
+  data_emicao    DateTime @default(now())
+  numero_nota    Int
+  valor_nota     Float
+  pedido         pedido?
+}
+
+model pedido {
+  id_pedido             Int           @id @default(autoincrement())
+  id_pedido_status      Int           @unique
+  id_nota_fiscal        Int           @unique
+  data_pedido_realizado DateTime
+  data_criacao          DateTime      @default(now())
+  razao_social          String
+  nome_fantasia         String
+  cnpj                  String
+  desativado            Boolean       @default(false)
+  data_desativacao      DateTime
+  id_entrega            Int
+  data_pedido_concluido DateTime
+  nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
+  pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
+}
+
+model pedido_status {
+  id_pedido_status Int      @id @default(autoincrement())
+  data_criacao     DateTime @default(now())
+  status_pedido    String
+  data_desativacao DateTime
+  pedido           pedido?
+}
+
+model unidade {
   id_unidade       Int      @id @default(autoincrement())
   id_empresa       Int
   data_criacao     DateTime @default(now())
@@ -27,51 +57,6 @@ model Unidade {
   nome_fantasia    String
   cnpj             String
   desativado       Boolean  @default(false)
-  data_desativacao DateTime @updatedAt
-
-  empresa Empresa @relation(fields: [id_empresa], references: [id_empresa])
-
-  @@map("unidade")
-}
-
-model Pedido_status {
-  id_pedido_status Int      @id @default(autoincrement())
-  data_criacao     DateTime @default(now())
-  status_pedido    String
-  data_desativacao DateTime @updatedAt
-
-  pedido Pedido?
-
-  @@map("pedido_status")
-}
-
-model Nota_fiscal {
-  id_nota_fiscal Int      @id @default(autoincrement())
-  data_emicao    DateTime @default(now())
-  numero_nota    Int
-  valor_nota     Float
-
-  pedido Pedido?
-
-  @@map("nota_fiscal")
-}
-
-model Pedido {
-  id_pedido             Int      @id @default(autoincrement())
-  id_pedido_status      Int      @unique
-  id_nota_fiscal        Int      @unique
-  data_pedido_realizado DateTime @updatedAt
-  data_criacao          DateTime @default(now())
-  razao_social          String
-  nome_fantasia         String
-  cnpj                  String
-  desativado            Boolean  @default(false)
-  data_desativacao      DateTime @updatedAt
-  id_entrega            Int
-  data_pedido_concluido DateTime @updatedAt
-
-  notaFiscal    Nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
-  pedido_Status Pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
-
-  @@map("pedido")
+  data_desativacao DateTime
+  empresa          empresa  @relation(fields: [id_empresa], references: [id_empresa])
 }

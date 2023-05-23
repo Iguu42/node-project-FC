@@ -7,13 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model empresa {
+model Empresa {
   id_empresa       Int       @id @default(autoincrement())
   data_criacao     DateTime  @default(now())
   nome             String    @unique
   desativado       Boolean   @default(false)
-  data_desativacao DateTime
+  data_desativacao DateTime  @default(now())
   unidade          unidade[]
+
+  @@map("empresa")
 }
 
 model nota_fiscal {
@@ -58,5 +60,5 @@ model unidade {
   cnpj             String
   desativado       Boolean  @default(false)
   data_desativacao DateTime
-  empresa          empresa  @relation(fields: [id_empresa], references: [id_empresa])
+  empresa          Empresa  @relation(fields: [id_empresa], references: [id_empresa])
 }

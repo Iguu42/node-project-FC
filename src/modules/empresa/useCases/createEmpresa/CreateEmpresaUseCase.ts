@@ -20,10 +20,8 @@ export class CreateEmpresaUseCase {
 
         //Criar a empresa
         const empresa = await prisma.empresa.create({
-            data: {
-                nome
-            }
-        });
+            data: { nome: nome }
+        })
         return empresa;
 
     }

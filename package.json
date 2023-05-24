@@ -9,7 +9,7 @@
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "migrate": "dotenv -e .env.local npx prisma migrate dev",
     "build": "rm -rf ./dist && tsc",
-    "start": "node ./dist/index.js"
+    "start": "node ./dist/server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

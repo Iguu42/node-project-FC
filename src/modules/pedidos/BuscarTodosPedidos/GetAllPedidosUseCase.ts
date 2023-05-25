@@ -7,7 +7,8 @@ export class GetAllPedidosUseCase {
             include: {
                 cliente: {
                     select: {
-                        nome_completo: true
+                        nome_completo: true,
+                        cpf: true
                     }
                 },
                 pedido_status: {
@@ -42,6 +43,7 @@ export class GetAllPedidosUseCase {
             numero_nota_fiscal: pedido.nota_fiscal.numero_nota,
             data_pedido_realizado: pedido.data_pedido_realizado,
             nome_cliente: pedido.cliente.nome_completo,
+            cpf_cliente: pedido.cliente.cpf,
             tipo_pagamento: pedido.pagamento.tipo_pagamento,
             valor_e_parcela: `${pedido.pagamento.parcela}x - R$${pedido.pagamento?.valor}`,
             nome_produto: pedido.produto.nome_produto,

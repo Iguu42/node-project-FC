@@ -1,4 +1,4 @@
-import { GetAllPedidosController } from './../modules/pedidos/useCases/BuscarTodosPedidos/GetAllPedidosController';
+import { GetAllPedidosController } from '../modules/pedidos/BuscarTodosPedidos/GetAllPedidosController';
 import { Router } from "express";
 
 const pedidoRoutes = Router();

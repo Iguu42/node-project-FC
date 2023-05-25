@@ -1,4 +1,4 @@
-import { pedido, cliente, pedido_status, nota_fiscal, pagamento, produto } from "@prisma/client";
+import { pedido, pedido_status, nota_fiscal, pagamento, produto, cliente } from "@prisma/client";
 import { prisma } from "../../../prisma/client";
 
 export class GetAllPedidosUseCase {

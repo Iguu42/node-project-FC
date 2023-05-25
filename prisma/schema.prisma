@@ -21,7 +21,7 @@ model Empresa {
 model nota_fiscal {
   id_nota_fiscal Int      @id @default(autoincrement())
   data_emicao    DateTime @default(now())
-  numero_nota    Int
+  numero_nota    String   @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 1000000000)::integer,'000000000'))"))
   valor_nota     Float
   pedido         pedido?
 }
@@ -29,6 +29,7 @@ model nota_fiscal {
 model cliente {
   id_cliente              Int      @id @default(autoincrement())
   data_conta_criada       DateTime @default(now())
+  cpf                     String   @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 100000000000)::float, '00000000000'))"))
   nome_completo           String
   genero                  genero
   data_nascimento         DateTime
@@ -48,7 +49,7 @@ enum genero {
 
 model pedido {
   id_pedido             Int           @id @default(autoincrement())
-  numero                String        @unique @default(dbgenerated("to_char(FLOOR(RANDOM() * 100000000)::integer, '00000000')"))
+  numero                String        @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 100000000)::integer,'00000000'))"))
   id_pedido_status      Int           @unique
   id_nota_fiscal        Int           @unique
   data_pedido_realizado DateTime      @default(now())

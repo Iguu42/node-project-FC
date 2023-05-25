@@ -7,7 +7,9 @@ import { pedidoRoutes } from './pedido.routes';
 const routes = Router();
 
 routes.use("/empresa", empresaRoutes);
+
 routes.use("/pedidos", pedidosRoutes);
+
 routes.use("/pedido", pedidoRoutes);
 
 export { routes };

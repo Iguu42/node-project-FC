@@ -26,21 +26,43 @@ model nota_fiscal {
   pedido         pedido?
 }
 
+model cliente {
+  id_cliente              Int      @id @default(autoincrement())
+  data_conta_criada       DateTime @default(now())
+  nome_completo           String
+  genero                  genero
+  data_nascimento         DateTime
+  email                   String
+  senha                   String
+  data_ultima_atualizacao DateTime @updatedAt
+  telefone                String
+  endereco                String
+  pedidos                 pedido[]
+}
+
+enum genero {
+  F
+  M
+  O
+}
+
 model pedido {
   id_pedido             Int           @id @default(autoincrement())
+  numero                String        @unique @default(dbgenerated("to_char(FLOOR(RANDOM() * 100000000)::integer, '00000000')"))
   id_pedido_status      Int           @unique
   id_nota_fiscal        Int           @unique
-  data_pedido_realizado DateTime
-  data_criacao          DateTime      @default(now())
-  razao_social          String
-  nome_fantasia         String
-  cnpj                  String
-  desativado            Boolean       @default(false)
-  data_desativacao      DateTime
-  id_entrega            Int
+  data_pedido_realizado DateTime      @default(now())
+  id_entrega            Int           @unique
   data_pedido_concluido DateTime
+  id_cliente            Int
+  id_pagamento          Int           @unique
+  id_produto            Int
   nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
   pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
+  cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
+  pagamento             pagamento     @relation(fields: [id_pagamento], references: [id_pagamento])
+  entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])
+  produto               produto       @relation(fields: [id_produto], references: [id_produto])
 }
 
 model pedido_status {
@@ -61,4 +83,44 @@ model unidade {
   desativado       Boolean  @default(false)
   data_desativacao DateTime
   empresa          Empresa  @relation(fields: [id_empresa], references: [id_empresa])
+}
+
+model pagamento {
+  id_pagamento         Int     @id @default(autoincrement())
+  parcela              Int
+  pagamento_confirmado Boolean @default(false)
+  tipo_pagamento       String
+  id_transacao         Int
+  valor                Float
+  pedido               pedido?
+}
+
+model entrega {
+  id_entrega            Int            @id @default(autoincrement())
+  id_entrega_status     Int            @unique
+  data_entrega_inicio   DateTime
+  valor_frete           Float
+  data_entrega_previsao DateTime
+  entrega_concluida     Boolean        @default(false)
+  data_entrega_fim      DateTime
+  entrega_status        entrega_status @relation(fields: [id_entrega_status], references: [id_entrega_status])
+  pedido                pedido?
+}
+
+model entrega_status {
+  id_entrega_status Int      @id @default(autoincrement())
+  data_criacao      DateTime @default(now())
+  status            String   @default("PENDENTE")
+  desativado        Boolean  @default(false)
+  entrega           entrega?
+}
+
+model produto {
+  id_produto   Int    @id @default(autoincrement())
+  quantidade   Int
+  nome_produto String
+  descricao    String
+  valor        Float
+
+  pedido pedido[]
 }

@@ -45,12 +45,12 @@ model pedido {
   id_pedido             Int           @id @default(autoincrement())
   id_pedido_status      Int           @unique
   id_nota_fiscal        Int           @unique
-  data_pedido_realizado DateTime      @default(now())
   id_entrega            Int           @unique
-  data_pedido_concluido DateTime
   id_cliente            Int
   id_pagamento          Int           @unique
   id_produto            Int
+  data_pedido_concluido DateTime
+  data_pedido_realizado DateTime      @default(now())
   numero                String        @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '00000000'::text))"))
   cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
   entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])

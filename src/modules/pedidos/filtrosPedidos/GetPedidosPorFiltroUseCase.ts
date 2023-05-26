@@ -1,14 +1,13 @@
 import { pedido, pedido_status, nota_fiscal, pagamento, produto, cliente } from "@prisma/client";
 import { prisma } from "../../../prisma/client";
 
-export class GetAllPedidosUseCase {
+export class GetPedidosPorFiltroUseCase {
     async execute(): Promise<any[]> {
         const pedidos = await prisma.pedido.findMany({
             include: {
                 cliente: {
                     select: {
                         nome_completo: true,
-                        cpf: true
 
                     }
                 },

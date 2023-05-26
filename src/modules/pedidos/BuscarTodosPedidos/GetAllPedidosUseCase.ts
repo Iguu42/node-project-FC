@@ -17,36 +17,24 @@ export class GetAllPedidosUseCase {
                         status_pedido: true
                     }
                 },
-                nota_fiscal: {
-                    select: {
-                        numero_nota: true
-                    }
-                },
                 pagamento: {
                     select: {
-                        tipo_pagamento: true,
                         valor: true,
-                        parcela: true
                     }
                 },
-                produto: {
-                    select: {
-                        nome_produto: true,
-                        quantidade: true
-                    }
-                }
             }
         });
 
+        const moment = require('moment');
+
         const pedidosFormatados = pedidos.map((pedido) => ({
-            status_pedido: pedido.pedido_status.status_pedido,
-            numero_nota_fiscal: pedido.nota_fiscal.numero_nota,
-            data_pedido_realizado: pedido.data_pedido_realizado,
-            nome_cliente: pedido.cliente.nome_completo,
-            tipo_pagamento: pedido.pagamento.tipo_pagamento,
-            valor_e_parcela: `${pedido.pagamento.parcela}x - R$${pedido.pagamento?.valor}`,
-            nome_produto: pedido.produto.nome_produto,
-            quantidade_produto: pedido.produto.quantidade
+
+            cpf: pedido.cliente.cpf,
+            nome: pedido.cliente.nome_completo,
+            numeroDoPedido: pedido.numero,
+            valorTotal: pedido.pagamento.valor,
+            dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
+            status_pedido: pedido.pedido_status.status_pedido
         }));
         return pedidosFormatados;
     }

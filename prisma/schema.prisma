@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Empresa {
@@ -21,7 +21,7 @@ model Empresa {
 model nota_fiscal {
   id_nota_fiscal Int      @id @default(autoincrement())
   data_emicao    DateTime @default(now())
-  numero_nota    String   @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 1000000000)::integer,'000000000'))"))
+  numero_nota    String   @unique @default(dbgenerated("btrim(to_char((floor((random() * (1000000000)::double precision)))::integer, '000000000'::text))"))
   valor_nota     Float
   pedido         pedido?
 }
@@ -29,7 +29,6 @@ model nota_fiscal {
 model cliente {
   id_cliente              Int      @id @default(autoincrement())
   data_conta_criada       DateTime @default(now())
-  cpf                     String   @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 100000000000)::float, '00000000000'))"))
   nome_completo           String
   genero                  genero
   data_nascimento         DateTime
@@ -38,18 +37,12 @@ model cliente {
   data_ultima_atualizacao DateTime @updatedAt
   telefone                String
   endereco                String
+  cpf                     String   @unique @default(dbgenerated("btrim(to_char(floor((random() * ('100000000000'::bigint)::double precision)), '00000000000'::text))"))
   pedidos                 pedido[]
-}
-
-enum genero {
-  F
-  M
-  O
 }
 
 model pedido {
   id_pedido             Int           @id @default(autoincrement())
-  numero                String        @unique @default(dbgenerated("TRIM(to_char(FLOOR(RANDOM() * 100000000)::integer,'00000000'))"))
   id_pedido_status      Int           @unique
   id_nota_fiscal        Int           @unique
   data_pedido_realizado DateTime      @default(now())
@@ -58,11 +51,12 @@ model pedido {
   id_cliente            Int
   id_pagamento          Int           @unique
   id_produto            Int
-  nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
-  pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
+  numero                String        @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '00000000'::text))"))
   cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
-  pagamento             pagamento     @relation(fields: [id_pagamento], references: [id_pagamento])
   entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])
+  nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
+  pagamento             pagamento     @relation(fields: [id_pagamento], references: [id_pagamento])
+  pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
   produto               produto       @relation(fields: [id_produto], references: [id_produto])
 }
 
@@ -117,11 +111,16 @@ model entrega_status {
 }
 
 model produto {
-  id_produto   Int    @id @default(autoincrement())
+  id_produto   Int      @id @default(autoincrement())
   quantidade   Int
   nome_produto String
   descricao    String
   valor        Float
+  pedido       pedido[]
+}
 
-  pedido pedido[]
+enum genero {
+  F
+  M
+  O
 }

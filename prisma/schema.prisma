@@ -85,7 +85,7 @@ model pagamento {
   parcela              Int
   pagamento_confirmado Boolean @default(false)
   tipo_pagamento       String
-  id_transacao         Int
+  id_transacao         String  @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '000000000'::text))"))
   valor                Float
   pedido               pedido?
 }

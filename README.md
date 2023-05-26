@@ -2,7 +2,9 @@
 
 ## Buscar todos os pedidos: 
 https://backend-node-fc-rise-up.cyclic.app/pedidos/all
+
 Retorno esperado:
+
 ```
 [
     {
@@ -34,10 +36,13 @@ Todos os status:
  - Entregue
 
 https://backend-node-fc-rise-up.cyclic.app/pedidos/all/{status aqui}
+
 OBS: É necessário passar exatamente como está a cima com a primeira letra maiúscula.
 
 Exemplo de request: 
+
 https://backend-node-fc-rise-up.cyclic.app/pedidos/all/Picking
+
 Retorno esperado:
 ````
 [
@@ -53,10 +58,15 @@ Retorno esperado:
 ````
 
 ## Buscar pedido específico: 
+
 https://backend-node-fc-rise-up.cyclic.app/pedido/{Número do pedido}
+
 Exemplo de request: 
+
 https://backend-node-fc-rise-up.cyclic.app/pedido/09741835
+
 Retorno esperado:
+
 ```
 {
     "cpf": "54627413097",

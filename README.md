@@ -25,7 +25,7 @@ Retorno esperado:
     }
 ]
 ```
-## Buscar todos os pedidos de um status específico: 
+## Buscar todos os pedidos por um status específico: 
 Todos os status:
  - Faturado
  - Picking

@@ -5,5 +5,5 @@ import { Router } from "express";
 const pedidosRoutes = Router();
 
 pedidosRoutes.get("/all", new GetAllPedidosController().handle);
-pedidosRoutes.get("/:cpf", new GetPedidoPorCpfController().handle);
+pedidosRoutes.get("cliente/:cpf", new GetPedidoPorCpfController().handle);
 export { pedidosRoutes };

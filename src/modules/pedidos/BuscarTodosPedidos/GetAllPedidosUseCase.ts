@@ -49,7 +49,6 @@ export class GetAllPedidosUseCase {
             nome_produto: pedido.produto.nome_produto,
             quantidade_produto: pedido.produto.quantidade
         }));
-
         return pedidosFormatados;
     }
 }

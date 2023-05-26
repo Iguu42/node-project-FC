@@ -63,9 +63,19 @@ model pedido {
 model pedido_status {
   id_pedido_status Int      @id @default(autoincrement())
   data_criacao     DateTime @default(now())
-  status_pedido    String
+  status_pedido    status
   data_desativacao DateTime
   pedido           pedido?
+}
+
+enum status {
+  Faturado
+  Picking
+  NaoEntregue
+  Sincronizacao
+  Antifraude
+  Captura
+  Entregue
 }
 
 model unidade {
@@ -94,7 +104,6 @@ model entrega {
   id_entrega            Int            @id @default(autoincrement())
   id_entrega_status     Int            @unique
   data_entrega_inicio   DateTime
-  valor_frete           Float
   data_entrega_previsao DateTime
   entrega_concluida     Boolean        @default(false)
   data_entrega_fim      DateTime
@@ -115,7 +124,6 @@ model produto {
   quantidade   Int
   nome_produto String
   descricao    String
-  valor        Float
   pedido       pedido[]
 }
 

@@ -10,13 +10,12 @@ export class GetPedidosDataController {
         
         const results = await getPedidosDataUseCase.allPedidosData(datarealizado);
         
-        if(!results) {
+        if(results?.length === 0) {
           return res.status(404).json({
             message: `Não foi possível encontrar pedidos realizados com a data informada ${datarealizado}`
           });
         }
         else {
-          console.log("tem dados" + results.length)
           return res.status(200).json(results);
         } 
 

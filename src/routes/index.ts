@@ -10,6 +10,6 @@ const routes = Router();
 routes.use("/pedidos", pedidosRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/pedido", pedidoRoutes);
-routes.use("/pedidosteste", pedidosPorData );
+routes.use("/pedidos/data/", pedidosPorData );
 
 export { routes };

@@ -26,7 +26,8 @@ export class GetPedidosDataUseCase {
         },
         pedido_status: {
           select: {
-            status_pedido: true
+            status_pedido: true,
+            status_erro: true
           }
         },
         nota_fiscal: {
@@ -56,6 +57,7 @@ export class GetPedidosDataUseCase {
 
     const pedidosFormatados = pedidos.map(pedido => ({
       status_pedido: pedido.pedido_status.status_pedido,
+      status_erro: pedido.pedido_status.status_erro,
       pedido: pedido.cliente.cpf,
       numero_nota_fiscal: pedido.nota_fiscal.numero_nota,
       data_pedido_realizado: pedido.data_pedido_realizado,

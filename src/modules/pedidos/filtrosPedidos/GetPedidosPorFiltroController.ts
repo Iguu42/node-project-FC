@@ -8,7 +8,7 @@ export class GetPedidosPorFiltroController {
         const getPedidosPorFiltroUseCase = new GetPedidosPorFiltroUseCase();
 
         if (filtro) {
-            const pedido = await getPedidosPorFiltroUseCase.execute(filtro);
+            const pedido = await getPedidosPorFiltroUseCase.execute(filtro.toUpperCase());
 
             if (!pedido) {
                 return res.status(404).json({ message: "Filtro não encontrado." });

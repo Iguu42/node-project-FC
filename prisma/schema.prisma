@@ -64,8 +64,8 @@ model pedido_status {
   id_pedido_status Int      @id @default(autoincrement())
   data_criacao     DateTime @default(now())
   status_pedido    status
-  status_erro      Boolean @default(false)
   data_desativacao DateTime
+  status_erro      Boolean  @default(false)
   pedido           pedido?
 }
 
@@ -106,8 +106,8 @@ model entrega_status {
   id_entrega_status Int      @id @default(autoincrement())
   data_criacao      DateTime @default(now())
   status            String   @default("PENDENTE")
-  status_erro       Boolean  @default(false)
   desativado        Boolean  @default(false)
+  status_erro       Boolean  @default(false)
   entrega           entrega?
 }
 
@@ -121,13 +121,13 @@ model produto {
 }
 
 enum status {
-  Faturado
-  Picking
-  NaoEntregue
-  Sincronizacao
-  Antifraude
-  Captura
-  Entregue
+  FATURADO
+  PICKING
+  NAOENTREGUE
+  SINCRONIZACAO
+  ANTIFRAUDE
+  CAPTURA
+  ENTREGUE
 }
 
 enum genero {

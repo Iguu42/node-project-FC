@@ -14,7 +14,8 @@ export class GetAllPedidosUseCase {
                 },
                 pedido_status: {
                     select: {
-                        status_pedido: true
+                        status_pedido: true,
+                        status_erro: true,
                     }
                 },
                 pagamento: {
@@ -32,6 +33,7 @@ export class GetAllPedidosUseCase {
             cpf: pedido.cliente.cpf,
             nome: pedido.cliente.nome_completo,
             numeroDoPedido: pedido.numero,
+            status_erro: pedido.pedido_status.status_erro,
             valorTotal: pedido.pagamento.valor,
             dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
             status_pedido: pedido.pedido_status.status_pedido

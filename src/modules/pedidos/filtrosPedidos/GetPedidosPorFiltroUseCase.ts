@@ -19,7 +19,8 @@ export class GetPedidosPorFiltroUseCase {
                 },
                 pedido_status: {
                     select: {
-                        status_pedido: true
+                        status_pedido: true,
+                        status_erro: true
                     }
                 },
                 pagamento: {
@@ -39,7 +40,8 @@ export class GetPedidosPorFiltroUseCase {
             numeroDoPedido: pedido.numero,
             valorTotal: pedido.pagamento.valor,
             dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
-            status_pedido: pedido.pedido_status.status_pedido
+            status_pedido: pedido.pedido_status.status_pedido,
+            status_erro: pedido.pedido_status.status_erro
         }));
         return pedidosFormatados;
     }

@@ -35,7 +35,8 @@ export class GetPedidoPorNumeroUseCase {
                 },
                 pedido_status: {
                     select: {
-                        status_pedido: true
+                        status_pedido: true,
+                        status_erro: true
                     }
                 }
 
@@ -63,7 +64,8 @@ export class GetPedidoPorNumeroUseCase {
             tipo_pagamento: pedido.pagamento.tipo_pagamento,
             parcelas: pedido.pagamento.parcela,
             id_transacao: pedido.pagamento.id_transacao,
-            dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY')
+            dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
+            status_erro: pedido.pedido_status.status_erro
         };
 
         return pedidoFormatado;

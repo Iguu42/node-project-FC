@@ -65,6 +65,7 @@ model pedido_status {
   data_criacao     DateTime @default(now())
   status_pedido    status
   data_desativacao DateTime
+  status_erro      Boolean  @default(false)
   pedido           pedido?
 }
 
@@ -106,6 +107,7 @@ model entrega_status {
   data_criacao      DateTime @default(now())
   status            String   @default("PENDENTE")
   desativado        Boolean  @default(false)
+  status_erro       Boolean  @default(false)
   entrega           entrega?
 }
 
@@ -119,13 +121,13 @@ model produto {
 }
 
 enum status {
-  Faturado
-  Picking
-  NaoEntregue
-  Sincronizacao
-  Antifraude
-  Captura
-  Entregue
+  FATURADO
+  PICKING
+  NAOENTREGUE
+  SINCRONIZACAO
+  ANTIFRAUDE
+  CAPTURA
+  ENTREGUE
 }
 
 enum genero {

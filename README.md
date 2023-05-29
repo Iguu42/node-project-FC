@@ -27,17 +27,16 @@ Retorno esperado:
 ```
 ## Buscar todos os pedidos por um status específico: 
 Todos os status:
- - Faturado
- - Picking
- - NaoEntregue
- - Sincronizacao
- - Antifraude
- - Captura
- - Entregue
+ - FATURADO
+ - PICKING
+ - NAOENTREGUE
+ - TRANSPORTE
+ - ANTIFRAUDE
+ - CAPTURA
+ - ENTREGUE
 
 https://backend-node-fc-rise-up.cyclic.app/pedidos/all/{status aqui}
 
-OBS: É necessário passar exatamente como está a cima com a primeira letra maiúscula.
 
 Exemplo de request: 
 
@@ -52,7 +51,8 @@ Retorno esperado:
         "numeroDoPedido": "09741835",
         "valorTotal": 1000,
         "dataDaCompra": "26/05/2023",
-        "status_pedido": "Picking"
+        "status_pedido": "PICKING",
+        "status_erro": false
     }
 ]
 ````
@@ -84,6 +84,7 @@ Retorno esperado:
     "tipo_pagamento": "Cartão de Crédito - VISA",
     "parcelas": 2,
     "id_transacao": 214244276,
-    "dataDaCompra": "26/05/2023"
+    "dataDaCompra": "26/05/2023",
+    "status_erro": false
 }
 ```

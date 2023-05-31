@@ -22,12 +22,12 @@ export class GetPedidoPorNumeroUseCase {
                         referencia: true,
                         descricao: true,
                         quantidade: true,
+                        valor: true,
 
                     }
                 },
                 pagamento: {
                     select: {
-                        valor: true,
                         tipo_pagamento: true,
                         parcela: true,
                         id_transacao: true
@@ -47,6 +47,19 @@ export class GetPedidoPorNumeroUseCase {
             return null;
         }
 
+        const produtosFormatados: { nome: string; referencia: string; descricao: string; quantidade: number; valor_produto: number; valor_total_produto: number; }[] = [];
+        pedido.produto.forEach((produto) => {
+            const produtoFormatado = {
+                nome: produto.nome_produto,
+                referencia: produto.referencia,
+                descricao: produto.descricao,
+                quantidade: produto.quantidade,
+                valor_produto: produto.valor,
+                valor_total_produto: produto.valor * produto.quantidade
+            };
+
+            produtosFormatados.push(produtoFormatado);
+        });
         const moment = require('moment');
         const pedidoFormatado = {
             cpf: pedido.cliente.cpf,
@@ -55,12 +68,7 @@ export class GetPedidoPorNumeroUseCase {
             email: pedido.cliente.email,
             endereco: pedido.cliente.endereco,
             numeroDoPedido: pedido.numero,
-            produto: pedido.produto.nome_produto,
-            referencia: pedido.produto.referencia,
-            descricao: pedido.produto.descricao,
-            quantidade: pedido.produto.quantidade,
-            valor_produto: pedido.pagamento.valor / pedido.produto.quantidade,
-            valor_total_produto: pedido.pagamento.valor,
+            produtos: produtosFormatados,
             tipo_pagamento: pedido.pagamento.tipo_pagamento,
             parcelas: pedido.pagamento.parcela,
             id_transacao: pedido.pagamento.id_transacao,

@@ -52,12 +52,13 @@ model pedido {
   id_pagamento          Int           @unique
   id_produto            Int
   numero                String        @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '00000000'::text))"))
+  Comentario            Comentario[]
   cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
   entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])
   nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
   pagamento             pagamento     @relation(fields: [id_pagamento], references: [id_pagamento])
   pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
-  produto               produto       @relation(fields: [id_produto], references: [id_produto])
+  produto               produto[]
 }
 
 model pedido_status {
@@ -87,7 +88,6 @@ model pagamento {
   pagamento_confirmado Boolean @default(false)
   tipo_pagamento       String
   id_transacao         String  @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '000000000'::text))"))
-  valor                Float
   pedido               pedido?
 }
 
@@ -112,12 +112,25 @@ model entrega_status {
 }
 
 model produto {
-  id_produto   Int      @id @default(autoincrement())
+  id_produto   Int    @id @default(autoincrement())
+  valor        Float
   quantidade   Int
   nome_produto String
   descricao    String
-  referencia   String   @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '0000000000'::text))"))
-  pedido       pedido[]
+  referencia   String @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '0000000000'::text))"))
+  id_pedido    Int
+  pedido       pedido @relation(fields: [id_pedido], references: [id_pedido])
+}
+
+model Comentario {
+  id_comentario     Int          @id @default(autoincrement())
+  data_criacao      DateTime     @default(now())
+  conteudo          String
+  id_pedido         Int
+  comentario_pai_id Int?
+  Comentario        Comentario?  @relation("ComentarioToComentario", fields: [comentario_pai_id], references: [id_comentario])
+  other_Comentario  Comentario[] @relation("ComentarioToComentario")
+  pedido            pedido       @relation(fields: [id_pedido], references: [id_pedido])
 }
 
 enum status {

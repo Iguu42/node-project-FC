@@ -12,6 +12,7 @@ Retorno esperado:
         "nome": "Igor Vitor",
         "numeroDoPedido": "09741835",
         "valorTotal": 1000,
+        "status_erro": false,
         "dataDaCompra": "26/05/2023",
         "status_pedido": "Picking"
     },
@@ -20,6 +21,7 @@ Retorno esperado:
         "nome": "Igor Vitor",
         "numeroDoPedido": "03860724",
         "valorTotal": 500,
+        "status_erro": true,
         "dataDaCompra": "26/05/2023",
         "status_pedido": "NaoEntregue"
     }
@@ -50,6 +52,7 @@ Retorno esperado:
         "nome": "Igor Vitor",
         "numeroDoPedido": "09741835",
         "valorTotal": 1000,
+        "status_erro": false,
         "dataDaCompra": "26/05/2023",
         "status_pedido": "PICKING",
         "status_erro": false
@@ -69,22 +72,34 @@ Retorno esperado:
 
 ```
 {
-    "cpf": "54627413097",
-    "nome": "Igor Vitor",
-    "contato": "85974654",
-    "email": "igorteste@gmail.com",
-    "endereco": "teste",
-    "numeroDoPedido": "09741835",
-    "produto": "Cadeira de Praia",
-    "referencia": "0041535676",
-    "descricao": "cadeira de praia de ferro",
-    "quantidade": 10,
-    "valor_produto": 100,
-    "valor_total_produto": 1000,
+    "cpf": "89411101674",
+    "nome": "Igor Félix ",
+    "contato": "081997300313",
+    "email": "igorFelix@gmail.com",
+    "endereco": "Rua José De Alcantara, 41B. Curado IV, Jaboatão dos Guararapes, PE.",
+    "numeroDoPedido": "83352426",
+    "produtos": [
+        {
+            "nome": "Cadeira de madeira",
+            "referencia": "0009002987",
+            "descricao": "Cadeira de madeira",
+            "quantidade": 3,
+            "valor_produto": 130,
+            "valor_total_produto": 390
+        },
+        {
+            "nome": "Serra Mármore Bosch ",
+            "referencia": "0012723862",
+            "descricao": "Serra Mármore Bosch ",
+            "quantidade": 1,
+            "valor_produto": 300,
+            "valor_total_produto": 300
+        }
+    ],
     "tipo_pagamento": "Cartão de Crédito - VISA",
-    "parcelas": 2,
-    "id_transacao": 214244276,
-    "dataDaCompra": "26/05/2023",
+    "parcelas": 3,
+    "id_transacao": "073250768",
+    "dataDaCompra": "31/05/2023",
     "status_erro": false
 }
 ```

@@ -73,6 +73,7 @@ export class GetPedidoPorNumeroUseCase {
             parcelas: pedido.pagamento.parcela,
             id_transacao: pedido.pagamento.id_transacao,
             dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
+            status_pedido: pedido.pedido_status.status_pedido,
             status_erro: pedido.pedido_status.status_erro
         };
 

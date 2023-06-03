@@ -35,7 +35,6 @@ export class GetAllPedidosUseCase {
             }, 0);
 
             return {
-                data: Date.now(),
                 cpf: pedido.cliente.cpf,
                 nome: pedido.cliente.nome_completo,
                 numeroDoPedido: pedido.numero,

@@ -62,12 +62,13 @@ model pedido {
 }
 
 model pedido_status {
-  id_pedido_status Int      @id @default(autoincrement())
-  data_criacao     DateTime @default(now())
-  status_pedido    status
-  data_desativacao DateTime
-  status_erro      Boolean  @default(false)
-  pedido           pedido?
+  id_pedido_status   Int      @id @default(autoincrement())
+  data_criacao       DateTime @default(now())
+  status_pedido      status
+  data_desativacao   DateTime
+  status_erro        Boolean  @default(false)
+  problema_resolvido Boolean  @default(false)
+  pedido             pedido?
 }
 
 model unidade {

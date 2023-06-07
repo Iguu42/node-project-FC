@@ -16,7 +16,6 @@ export class GetAllPedidosUseCase {
                     select: {
                         status_pedido: true,
                         status_erro: true,
-                        problema_resolvido: true
                     }
                 },
                 produto: {
@@ -43,8 +42,7 @@ export class GetAllPedidosUseCase {
                 valorTotal: valorTotal,
                 dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
                 status_pedido: pedido.pedido_status.status_pedido,
-                timestempDataDaCompra: pedido.data_pedido_realizado,
-                problemaResolvido: pedido.pedido_status.problema_resolvido
+                timestempDataDaCompra: pedido.data_pedido_realizado
             };
         });
 

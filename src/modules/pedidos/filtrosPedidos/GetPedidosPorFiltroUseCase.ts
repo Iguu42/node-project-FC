@@ -1,9 +1,14 @@
 import { pedido, pedido_status, nota_fiscal, pagamento, produto, cliente } from "@prisma/client";
 import { prisma } from "../../../prisma/client";
 
-export class GetAllPedidosUseCase {
-    async execute(): Promise<any[]> {
+export class GetPedidosPorFiltroUseCase {
+    async execute(filtro: any): Promise<any[]> {
         const pedidos = await prisma.pedido.findMany({
+            where: {
+                pedido_status: {
+                    status_pedido: filtro
+                }
+            },
             include: {
                 cliente: {
                     select: {
@@ -15,7 +20,7 @@ export class GetAllPedidosUseCase {
                 pedido_status: {
                     select: {
                         status_pedido: true,
-                        status_erro: true,
+                        status_erro: true
                     }
                 },
                 produto: {
@@ -42,7 +47,6 @@ export class GetAllPedidosUseCase {
                 valorTotal: valorTotal,
                 dataDaCompra: moment(pedido.data_pedido_realizado).format('DD/MM/YYYY'),
                 status_pedido: pedido.pedido_status.status_pedido,
-                timestempDataDaCompra: pedido.data_pedido_realizado
             };
         });
 

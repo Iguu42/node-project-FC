@@ -6,9 +6,10 @@ import express from 'express';
 import { routes } from './routes';
 
 const app = express();
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
-
 app.use(routes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -18,10 +19,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             message: err.message
         })
     }
-
     return res.status(500).json({
         status: "error",
-        message: "Internal server error "
+        message: "Internal server error"
     })
 })
 

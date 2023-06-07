@@ -4,7 +4,7 @@
 https://backend-node-fc-rise-up.cyclic.app/pedidos/all
 
 Retorno esperado:
-
+.
 ```
 [
     {

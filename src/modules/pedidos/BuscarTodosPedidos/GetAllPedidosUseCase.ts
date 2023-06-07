@@ -16,6 +16,7 @@ export class GetAllPedidosUseCase {
                     select: {
                         status_pedido: true,
                         status_erro: true,
+                        problema_resolvido: true
                     }
                 },
                 produto: {

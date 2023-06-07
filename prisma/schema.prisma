@@ -1,0 +1,152 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Empresa {
+  id_empresa       Int       @id @default(autoincrement())
+  data_criacao     DateTime  @default(now())
+  nome             String    @unique
+  desativado       Boolean   @default(false)
+  data_desativacao DateTime  @default(now())
+  unidade          unidade[]
+
+  @@map("empresa")
+}
+
+model nota_fiscal {
+  id_nota_fiscal Int      @id @default(autoincrement())
+  data_emicao    DateTime @default(now())
+  numero_nota    String   @unique @default(dbgenerated("btrim(to_char((floor((random() * (1000000000)::double precision)))::integer, '000000000'::text))"))
+  valor_nota     Float
+  pedido         pedido?
+}
+
+model cliente {
+  id_cliente              Int      @id @default(autoincrement())
+  data_conta_criada       DateTime @default(now())
+  nome_completo           String
+  genero                  genero
+  data_nascimento         DateTime
+  email                   String
+  senha                   String
+  data_ultima_atualizacao DateTime @updatedAt
+  telefone                String
+  endereco                String
+  cpf                     String   @unique @default(dbgenerated("btrim(to_char(floor((random() * ('100000000000'::bigint)::double precision)), '00000000000'::text))"))
+  pedidos                 pedido[]
+}
+
+model pedido {
+  id_pedido             Int           @id @default(autoincrement())
+  id_pedido_status      Int           @unique
+  id_nota_fiscal        Int           @unique
+  data_pedido_realizado DateTime      @default(now())
+  id_entrega            Int           @unique
+  data_pedido_concluido DateTime
+  id_cliente            Int
+  id_pagamento          Int           @unique
+  id_produto            Int
+  numero                String        @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '00000000'::text))"))
+  Comentario            Comentario[]
+  cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
+  entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])
+  nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
+  pagamento             pagamento     @relation(fields: [id_pagamento], references: [id_pagamento])
+  pedido_status         pedido_status @relation(fields: [id_pedido_status], references: [id_pedido_status])
+  produto               produto[]
+}
+
+model pedido_status {
+  id_pedido_status   Int      @id @default(autoincrement())
+  data_criacao       DateTime @default(now())
+  status_pedido      status
+  data_desativacao   DateTime
+  status_erro        Boolean  @default(false)
+  problema_resolvido Boolean  @default(false)
+  pedido             pedido?
+}
+
+model unidade {
+  id_unidade       Int      @id @default(autoincrement())
+  id_empresa       Int
+  data_criacao     DateTime @default(now())
+  razao_social     String
+  nome_fantasia    String
+  cnpj             String
+  desativado       Boolean  @default(false)
+  data_desativacao DateTime
+  empresa          Empresa  @relation(fields: [id_empresa], references: [id_empresa])
+}
+
+model pagamento {
+  id_pagamento         Int     @id @default(autoincrement())
+  parcela              Int
+  pagamento_confirmado Boolean @default(false)
+  tipo_pagamento       String
+  id_transacao         String  @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '000000000'::text))"))
+  pedido               pedido?
+}
+
+model entrega {
+  id_entrega            Int            @id @default(autoincrement())
+  id_entrega_status     Int            @unique
+  data_entrega_inicio   DateTime
+  data_entrega_previsao DateTime
+  entrega_concluida     Boolean        @default(false)
+  data_entrega_fim      DateTime
+  entrega_status        entrega_status @relation(fields: [id_entrega_status], references: [id_entrega_status])
+  pedido                pedido?
+}
+
+model entrega_status {
+  id_entrega_status Int      @id @default(autoincrement())
+  data_criacao      DateTime @default(now())
+  status            String   @default("PENDENTE")
+  desativado        Boolean  @default(false)
+  status_erro       Boolean  @default(false)
+  entrega           entrega?
+}
+
+model produto {
+  id_produto   Int    @id @default(autoincrement())
+  valor        Float
+  quantidade   Int
+  nome_produto String
+  descricao    String
+  referencia   String @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '0000000000'::text))"))
+  id_pedido    Int
+  pedido       pedido @relation(fields: [id_pedido], references: [id_pedido])
+}
+
+model Comentario {
+  id_comentario     Int          @id @default(autoincrement())
+  data_criacao      DateTime     @default(now())
+  conteudo          String
+  id_pedido         Int
+  comentario_pai_id Int?
+  Comentario        Comentario?  @relation("ComentarioToComentario", fields: [comentario_pai_id], references: [id_comentario])
+  other_Comentario  Comentario[] @relation("ComentarioToComentario")
+  pedido            pedido       @relation(fields: [id_pedido], references: [id_pedido])
+}
+
+enum status {
+  FATURADO
+  PICKING
+  NAOENTREGUE
+  SINCRONIZACAO
+  ANTIFRAUDE
+  CAPTURA
+  ENTREGUE
+}
+
+enum genero {
+  F
+  M
+  O
+}

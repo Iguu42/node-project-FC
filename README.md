@@ -103,3 +103,119 @@ Retorno esperado:
     "status_erro": false
 }
 ```
+
+
+## Criar comentário em pedido: 
+
+[Post]
+https://backend-node-fc-rise-up.cyclic.app/comentarios
+
+Obs: Passar id do pedido e o conteúdo da mensagem no body da requisição
+
+Ex:
+
+```
+[
+    {
+        "idPedido": "83352426",
+        "conteudo": "Status - Pedido na doca"
+    }
+]
+```
+Retorno esperado:
+
+```
+{
+	"message": "Comentário criado com sucesso"
+}
+```
+
+
+## Deletar comentário de um pedido:
+
+[DELETE]
+https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do comentário}
+
+Exemplo de requisição:
+https://backend-node-fc-rise-up.cyclic.app/comentarios/1
+
+Retorno esperado:
+```
+{
+    "message": "Comentário deletado com sucesso"
+}
+```
+
+## Buscar comentários de um pedido:
+
+[GET]
+https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do pedido}
+
+Exemplo de requisição:
+https://backend-node-fc-rise-up.cyclic.app/comentarios/44462855
+
+Retorno esperado:
+```
+[
+	{
+		"id_comentario": 1,
+		"data_criacao": "2023-06-10T18:21:11.942Z",
+		"conteudo": "oidsadasii",
+		"id_pedido": "44462855",
+		"comentario_pai_id": null
+	},
+	{
+		"id_comentario": 3,
+		"data_criacao": "2023-06-10T18:21:27.695Z",
+		"conteudo": "alooooasdasdasdooooo",
+		"id_pedido": "44462855",
+		"comentario_pai_id": 1
+	},
+	{
+		"id_comentario": 4,
+		"data_criacao": "2023-06-10T18:22:01.109Z",
+		"conteudo": "alooooasdasd5635464asdooooo",
+		"id_pedido": "44462855",
+		"comentario_pai_id": 1
+	},
+	{
+		"id_comentario": 5,
+		"data_criacao": "2023-06-10T18:22:23.240Z",
+		"conteudo": "teste2",
+		"id_pedido": "44462855",
+		"comentario_pai_id": null
+	},
+	{
+		"id_comentario": 7,
+		"data_criacao": "2023-06-10T18:23:08.552Z",
+		"conteudo": "teste2",
+		"id_pedido": "44462855",
+		"comentario_pai_id": 5
+	}
+]
+```
+
+## Responder comentário:
+
+[POST]
+https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do comentário}
+
+Exemplo de requisição:
+https://backend-node-fc-rise-up.cyclic.app/comentarios/2
+
+Obs: Passar id do pedido e o conteúdo da resposta no body da requisição
+
+```
+{
+    "resposta": "aloooooo",
+    "id_pedido": 3
+}
+```
+
+
+Retorno esperado:
+```
+{
+    "message": "Comentário respondido com sucesso"
+}
+```

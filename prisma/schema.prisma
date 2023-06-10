@@ -53,7 +53,7 @@ model pedido {
   id_pagamento          Int           @unique
   id_produto            Int
   numero                String        @unique @default(dbgenerated("btrim(to_char((floor((random() * (100000000)::double precision)))::integer, '00000000'::text))"))
-  Comentario            Comentario[]
+  Comentario            comentario[]
   cliente               cliente       @relation(fields: [id_cliente], references: [id_cliente])
   entrega               entrega       @relation(fields: [id_entrega], references: [id_entrega])
   nota_fiscal           nota_fiscal   @relation(fields: [id_nota_fiscal], references: [id_nota_fiscal])
@@ -124,15 +124,15 @@ model produto {
   pedido       pedido @relation(fields: [id_pedido], references: [id_pedido])
 }
 
-model Comentario {
+model comentario {
   id_comentario     Int          @id @default(autoincrement())
   data_criacao      DateTime     @default(now())
   conteudo          String
-  id_pedido         Int
+  id_pedido         String
   comentario_pai_id Int?
-  Comentario        Comentario?  @relation("ComentarioToComentario", fields: [comentario_pai_id], references: [id_comentario])
-  other_Comentario  Comentario[] @relation("ComentarioToComentario")
-  pedido            pedido       @relation(fields: [id_pedido], references: [id_pedido])
+  comentario        comentario?  @relation("ComentarioToComentario", fields: [comentario_pai_id], references: [id_comentario])
+  other_Comentario  comentario[] @relation("ComentarioToComentario")
+  pedido            pedido       @relation(fields: [id_pedido], references: [numero])
 }
 
 enum status {

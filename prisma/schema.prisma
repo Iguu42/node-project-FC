@@ -135,6 +135,12 @@ model comentario {
   pedido            pedido       @relation(fields: [id_pedido], references: [numero])
 }
 
+model login {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  senha String @unique
+}
+
 enum status {
   FATURADO
   PICKING

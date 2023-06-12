@@ -1,7 +1,7 @@
 # Backend:
 
 ## Buscar todos os pedidos: 
-https://backend-node-fc-rise-up.cyclic.app/pedidos/all
+https://node-project-fc-production.up.railway.app/pedidos/all
 
 Retorno esperado:
 
@@ -37,12 +37,12 @@ Todos os status:
  - CAPTURA
  - ENTREGUE
 
-https://backend-node-fc-rise-up.cyclic.app/pedidos/all/{status aqui}
+https://node-project-fc-production.up.railway.app/pedidos/all/{status aqui}
 
 
 Exemplo de request: 
 
-https://backend-node-fc-rise-up.cyclic.app/pedidos/all/Picking
+https://node-project-fc-production.up.railway.app/pedidos/all/Picking
 
 Retorno esperado:
 ````
@@ -62,11 +62,11 @@ Retorno esperado:
 
 ## Buscar pedido específico: 
 
-https://backend-node-fc-rise-up.cyclic.app/pedido/{Número do pedido}
+https://node-project-fc-production.up.railway.app/pedido/{Número do pedido}
 
 Exemplo de request: 
 
-https://backend-node-fc-rise-up.cyclic.app/pedido/09741835
+https://node-project-fc-production.up.railway.app/pedido/09741835
 
 Retorno esperado:
 
@@ -108,7 +108,7 @@ Retorno esperado:
 ## Criar comentário em pedido: 
 
 [Post]
-https://backend-node-fc-rise-up.cyclic.app/comentarios
+https://node-project-fc-production.up.railway.app/comentarios
 
 Obs: Passar id do pedido e o conteúdo da mensagem no body da requisição
 
@@ -134,10 +134,10 @@ Retorno esperado:
 ## Deletar comentário de um pedido:
 
 [DELETE]
-https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do comentário}
+https://node-project-fc-production.up.railway.app/comentarios/{ID do comentário}
 
 Exemplo de requisição:
-https://backend-node-fc-rise-up.cyclic.app/comentarios/1
+https://node-project-fc-production.up.railway.app/comentarios/1
 
 Retorno esperado:
 ```
@@ -149,10 +149,10 @@ Retorno esperado:
 ## Buscar comentários de um pedido:
 
 [GET]
-https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do pedido}
+https://node-project-fc-production.up.railway.app/comentarios/{ID do pedido}
 
 Exemplo de requisição:
-https://backend-node-fc-rise-up.cyclic.app/comentarios/44462855
+https://node-project-fc-production.up.railway.app/comentarios/44462855
 
 Retorno esperado:
 ```
@@ -198,10 +198,10 @@ Retorno esperado:
 ## Responder comentário:
 
 [POST]
-https://backend-node-fc-rise-up.cyclic.app/comentarios/{ID do comentário}
+https://node-project-fc-production.up.railway.app/comentarios/{ID do comentário}
 
 Exemplo de requisição:
-https://backend-node-fc-rise-up.cyclic.app/comentarios/2
+https://node-project-fc-production.up.railway.app/comentarios/2
 
 Obs: Passar id do pedido e o conteúdo da resposta no body da requisição
 

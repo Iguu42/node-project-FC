@@ -4,9 +4,9 @@ import { Request } from 'express';
 import "express-async-errors";
 import express from 'express';
 import { routes } from './routes';
+const cors = require("cors");
 
 const app = express();
-const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());

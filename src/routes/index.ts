@@ -13,6 +13,6 @@ routes.use("/pedidos", pedidosRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/pedido", pedidoRoutes);
 routes.use("/pedidos/data/", pedidosPorData);
-routes.use("/comentarios", comentariosRoutes);
+routes.use("/pedidos/comentarios", comentariosRoutes);
 routes.use("/login", loginRoutes)
 export { routes };

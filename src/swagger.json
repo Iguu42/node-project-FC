@@ -92,13 +92,159 @@
                     "500": {
                         "description": "internal server error"
                     },
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Login"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": []
+            }
+        },
+        "/comentarios": {
+            "post": {
+                "sumary": "Criar comentário em pedido",
+                "description": "Criar comentário em pedido",
+                "tags": [
+                    "Comentarios"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Comentario"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Erro ao criar comentário"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comentário criado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": []
+            }
+        },
+        "/comentarios/{NumeroDoPedido}": {
+            "get": {
+                "sumary": "Buscar todos os comentários de um pedido.",
+                "description": "Criar comentário em pedido",
+                "tags": [
+                    "Comentarios"
+                ],
+                "parameters": [
+                    {
+                        "name": "NumeroDoPedido",
+                        "in": "path",
+                        "description": "Número do pedido para busca os comentários",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro ao buscar comentários"
+                    },
                     "200": {
                         "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/Login"
+                                    "$ref": "#/components/schemas/Comentarios"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/comentarios/{IdDoComentario}": {
+            "delete": {
+                "sumary": "Deletar um comentário pelo ID.",
+                "description": "Deletar um comentário pelo ID.",
+                "tags": [
+                    "Comentarios"
+                ],
+                "parameters": [
+                    {
+                        "name": "IdDoComentario",
+                        "in": "path",
+                        "description": "ID do comentário a ser deletado",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro ao deletar comentário"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comentário deletado com sucesso"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "sumary": "Criar resposta em comentário pelo ID.",
+                "description": "Rota para Criar resposta em comentário pelo ID.",
+                "tags": [
+                    "Comentarios"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Resposta"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "internal server error"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Resposta"
                                 }
                             }
                         }
@@ -253,6 +399,66 @@
                     "senha": {
                         "type": "string",
                         "example": "teste"
+                    }
+                }
+            },
+            "Comentario": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "idPedido": {
+                            "type": "string",
+                            "example": "83352426"
+                        },
+                        "conteudo": {
+                            "type": "string",
+                            "example": "Status - Pedido na doca"
+                        }
+                    }
+                }
+            },
+            "Comentarios": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id_comentario": {
+                            "type": "number",
+                            "example": 1
+                        },
+                        "data_criacao": {
+                            "type": "datetime",
+                            "example": "2023-06-10T18:21:11.942Z"
+                        },
+                        "conteudo": {
+                            "type": "string",
+                            "example": "teste comentario"
+                        },
+                        "id_pedido": {
+                            "type": "string",
+                            "example": "44462855"
+                        },
+                        "comentario_pai_id": {
+                            "type": "number",
+                            "example": null
+                        }
+                    }
+                }
+            },
+            "Resposta": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "resposta": {
+                            "type": "string",
+                            "example": "aloooooo"
+                        },
+                        "id_pedido": {
+                            "type": "number",
+                            "example": 1
+                        }
                     }
                 }
             }

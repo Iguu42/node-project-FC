@@ -1,0 +1,42 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Backend Ferreira Costa",
+        "description": "",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://node-project-fc-production.up.railway.app/",
+            "description": "API Deploy"
+        },
+        {
+            "url": "http://localhost:3003/v1",
+            "description": "API local"
+        }
+    ],
+    "paths": {
+        "/pedidos/all": {
+            "get": {
+                "sumary": "Buscar todos os pedidos",
+                "description": "Rota para buscar todos os pedidos do banco de dados.",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

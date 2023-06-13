@@ -8,7 +8,11 @@
     "servers": [
         {
             "url": "https://node-project-fc-production.up.railway.app/",
-            "description": "API Deploy"
+            "description": "API Deploy railway"
+        },
+        {
+            "url": "https://backend1-node-fc-rise-up.cyclic.app/",
+            "description": "API Backup Deploy cyclic"
         }
     ],
     "paths": {
@@ -26,10 +30,229 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Pedidos"
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/pedido/{NumeroPedido}": {
+            "get": {
+                "sumary": "Buscar um pedido pelo número",
+                "description": "Rota para buscar pedido por número.",
+                "tags": [
+                    "Pedidos"
+                ],
+                "parameters": [
+                    {
+                        "name": "NumeroPedido",
+                        "in": "path",
+                        "description": "Número do pedido para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Pedido"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "sumary": "Validar login",
+                "description": "Rota para validar o login do usuário.",
+                "tags": [
+                    "Login"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Login"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Login"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Pedidos": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string",
+                        "example": "89411101674"
+                    },
+                    "nome": {
+                        "type": "string",
+                        "example": "Igor Félix"
+                    },
+                    "numeroDoPedido": {
+                        "type": "string",
+                        "example": "83352426"
+                    },
+                    "status_erro": {
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "valorTotal": {
+                        "type": "number",
+                        "example": "690"
+                    },
+                    "dataDaCompra": {
+                        "type": "string",
+                        "example": "31/05/2023"
+                    },
+                    "status_pedido": {
+                        "type": "string",
+                        "example": "FATURADO"
+                    },
+                    "timestempDataDaCompra": {
+                        "type": "datetime",
+                        "example": "2023-05-31T03:20:03.536Z"
+                    },
+                    "problemaResolvido": {
+                        "type": "boolean",
+                        "example": "false"
+                    }
+                }
+            },
+            "Pedido": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string",
+                        "example": "89411101674"
+                    },
+                    "nome": {
+                        "type": "string",
+                        "example": "Igor Félix"
+                    },
+                    "contato": {
+                        "type": "string",
+                        "example": "081997300313"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "igorFelix@gmail.com"
+                    },
+                    "endereco": {
+                        "type": "string",
+                        "example": "Rua José De Alcantara, 41B. Curado IV, Jaboatão dos Guararapes, PE."
+                    },
+                    "numperoDoPedido": {
+                        "type": "string",
+                        "example": "83352426"
+                    },
+                    "produtos": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "nome": {
+                                    "type": "string",
+                                    "example": "Chuveiro Deca com Tubo de Parede"
+                                },
+                                "referencia": {
+                                    "type": "string",
+                                    "example": "0056637627"
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "example": "Chuveiro Deca com Tubo de Parede"
+                                },
+                                "quantidade": {
+                                    "type": "number",
+                                    "example": 2
+                                },
+                                "valor_produto": {
+                                    "type": "number",
+                                    "example": 345
+                                },
+                                "valor_total_produto": {
+                                    "type": "number",
+                                    "example": 690
+                                }
+                            }
+                        }
+                    },
+                    "tipo_pagamento": {
+                        "type": "string",
+                        "example": "Cartão de Crédito - VISA"
+                    },
+                    "parcelas": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "id_transacao": {
+                        "type": "string",
+                        "example": "073250768"
+                    },
+                    "dataDaCompra": {
+                        "type": "string",
+                        "example": "31/05/2023"
+                    },
+                    "status_pedido": {
+                        "type": "string",
+                        "example": "FATURADO"
+                    },
+                    "status_erro": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "timestampDataDaCompra": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "problemaResolvido": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Login": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "teste"
+                    },
+                    "senha": {
+                        "type": "string",
+                        "example": "teste"
                     }
                 }
             }

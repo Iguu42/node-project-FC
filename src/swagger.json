@@ -9,10 +9,6 @@
         {
             "url": "https://node-project-fc-production.up.railway.app/",
             "description": "API Deploy"
-        },
-        {
-            "url": "http://localhost:3003/v1",
-            "description": "API local"
         }
     ],
     "paths": {

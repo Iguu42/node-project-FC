@@ -454,18 +454,15 @@
                 }
             },
             "Resposta": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "resposta": {
-                            "type": "string",
-                            "example": "aloooooo"
-                        },
-                        "id_pedido": {
-                            "type": "number",
-                            "example": 1
-                        }
+                "type": "object",
+                "properties": {
+                    "resposta": {
+                        "type": "string",
+                        "example": "aloooooo"
+                    },
+                    "id_pedido": {
+                        "type": "number",
+                        "example": 1
                     }
                 }
             }

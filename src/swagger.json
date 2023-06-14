@@ -224,6 +224,14 @@
                 "tags": [
                     "Comentarios"
                 ],
+                "parameters": [
+                    {
+                        "name": "IdDoComentario",
+                        "in": "path",
+                        "description": "Id do comentario do pedido para resposta",
+                        "required": true
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -249,8 +257,7 @@
                             }
                         }
                     }
-                },
-                "parameters": []
+                }
             }
         }
     },

@@ -1,5 +1,8 @@
 # Backend:
 
+## Documentação Swagger: 
+https://node-project-fc-production.up.railway.app/api-docs/
+
 ## Buscar todos os pedidos: 
 https://node-project-fc-production.up.railway.app/pedidos/all
 
